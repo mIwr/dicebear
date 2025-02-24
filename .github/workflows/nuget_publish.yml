@@ -1,0 +1,87 @@
+name: Publish to nuget and release
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "**/*.cs"
+      - "**/*.csproj"
+
+concurrency:
+  group: proj-${{ github.head_ref }}
+  cancel-in-progress: true
+
+jobs:
+
+  nuget_publish:
+    name: Build, pack and nuget publish
+    runs-on: ubuntu-latest
+    outputs:
+      release_ver: ${{ steps.proj_version.outputs.assembly-version }}
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '6.x'
+          
+      - name: Launch unit tests
+        run: dotnet test --nologo
+        
+      - name: Parse csproj version
+        id: proj_version
+        uses: kzrnm/get-net-sdk-project-versions-action@v2
+        with:
+          proj-path: DiceBear.API/DiceBear.API.csproj
+
+      - name: NuGet publish
+        id: nuget_worker
+        uses: alirezanet/publish-nuget@v3.1.0
+        with:
+          # Filepath of the project to be packaged, relative to root of repository
+          PROJECT_FILE_PATH: DiceBear.API/DiceBear.API.csproj
+
+          # NuGet package id, used for version detection & defaults to project name
+          # PACKAGE_NAME: DiceBear.API
+
+          # Filepath with version info, relative to root of repository & defaults to PROJECT_FILE_PATH
+          # VERSION_FILE_PATH: Directory.Build.props
+
+          # Regex pattern to extract version info in a capturing group
+          # Version>([\d]+(.[\d]+)*)<\/\w*Version>$ - NET Core csproj regex
+          VERSION_REGEX: Version>([\d]+(.[\d]+)*)<\/\w*Version>$
+
+          # Useful with external providers like Nerdbank.GitVersioning, ignores VERSION_FILE_PATH & VERSION_REGEX
+          # VERSION_STATIC: 1.0.0
+
+          # Flag to toggle git tagging, enabled by default
+          TAG_COMMIT: false
+
+          # Format of the git tag, [*] gets replaced with actual version
+          # TAG_FORMAT: v*
+
+          # API key to authenticate with NuGet server
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+
+          # NuGet server uri hosting the packages, defaults to https://api.nuget.org
+          # NUGET_SOURCE: https://api.nuget.org
+
+          # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
+          INCLUDE_SYMBOLS: false
+          
+  release:
+    name: Make Github release
+    needs: nuget_publish
+    runs-on: ubuntu-latest
+
+    steps:     
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_BUILD_TOKEN }}
+          RELEASE_VERSION: ${{ needs.nuget_publish.outputs.release_ver }}
+        with:
+          tag_name: ${{ env.RELEASE_VERSION }}
+          name: ${{ github.event.repository.name }} ${{ env.RELEASE_VERSION }}
+          draft: true
