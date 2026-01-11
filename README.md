@@ -2,7 +2,7 @@
 
 [![](http://img.shields.io/nuget/v/DiceBear.API.svg)](http://www.nuget.org/packages/DiceBear.API)
 
-C# (.NET 6) wrapper for DiceBear API (9.x version) at https://dicebear.com
+C# (.NET 6, .NET 8, .NET Framework through .NET Standard) wrapper for DiceBear API (9.x version) at https://dicebear.com
 
 The library provides an interface for generating and downloading avas generated via [DiceBear API](https://www.dicebear.com/how-to-use/http-api/)
 

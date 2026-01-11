@@ -34,7 +34,7 @@ namespace DiceBear.API
         public static Dictionary<string, string> GenerateNotionistsCustomParamsDict(BeardNotionists? beard = null, byte beardProbability = 100, Body? body = null, Brows? brows = null, EyesNotionists? eyes = null, Gesture? gesture = null, byte gestureProbability = 100, GlassesNotionists? glasses = null, byte glassesProbability = 100, HairNotionists? hair = null, Lips? lips = null, Nose? nose = null)
         {
             var resDict = new Dictionary<string, string>();
-            if (beard != null && beardProbability > 0)
+            if (beard != null && beardProbability != 0)
             {
                 var validatedBeardProbability = beardProbability >= 100 ? 100 : beardProbability;
                 resDict.Add(BeardExt.ApiParamName, beard.Value.ApiKey());
@@ -52,13 +52,13 @@ namespace DiceBear.API
             {
                 resDict.Add(EyesExt.ApiParamName, eyes.Value.ApiKey());
             }
-            if (gesture != null && gestureProbability > 0)
+            if (gesture != null && gestureProbability != 0)
             {
                 var validatedGestureProbability = gestureProbability >= 100 ? 100 : gestureProbability;
                 resDict.Add(GestureExt.ApiParamName, gesture.Value.ApiKey());
                 resDict.Add("gestureProbability", validatedGestureProbability.ToString());
             }
-            if (glasses != null && glassesProbability > 0)
+            if (glasses != null && glassesProbability != 0)
             {
                 var validatedGlassesProbability = glassesProbability >= 100 ? 100 : glassesProbability;
                 resDict.Add(GlassesExt.ApiParamName, glasses.Value.ApiKey());

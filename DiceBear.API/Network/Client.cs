@@ -36,7 +36,7 @@ namespace FaceGenerator.Network
                 }
                 var statusCode = (int)response.StatusCode;
 
-                var reader = new BinaryReader(response.Content.ReadAsStream());
+                var reader = new BinaryReader(await response.Content.ReadAsStreamAsync());
                 var outStream = new MemoryStream();
                 var buffer = new byte[4096];
                 var count = 1;

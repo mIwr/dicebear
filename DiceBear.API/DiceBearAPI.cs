@@ -77,9 +77,13 @@ namespace DiceBear.API
                 case AvaStyle.Adventurer:
                     customParams = GenerateRandomAdventurerParamsDict();
                     break;
-                /*case AvaStyle.AdventurerNeutral: return "adventurer-neutral";
-                case AvaStyle.Avataaars: return "avataaars";
-                case AvaStyle.AvataaarsNeutral: return "avataaars-neutral";
+                case AvaStyle.AdventurerNeutral:
+                    customParams = GenerateRandomAdventurerNeutralParamsDict();
+                    break;
+                case AvaStyle.Avataaars:
+                    customParams = GenerateRandomAvataaarsParamsDict();
+                    break;
+                /*case AvaStyle.AvataaarsNeutral: return "avataaars-neutral";
                 case AvaStyle.BigEars: return "big-ears";
                 case AvaStyle.BigEarsNeutral: return "big-ears-neutral";
                 case AvaStyle.BigSmile: return "big-smile";
@@ -146,7 +150,7 @@ namespace DiceBear.API
             {
                 pathSuffix = customStyleKey;
             }
-            if (!pathSuffix.EndsWith('/'))
+            if (!pathSuffix.EndsWith("/"))
             {
                 pathSuffix += '/';
             }
@@ -182,10 +186,9 @@ namespace DiceBear.API
             {
                 queryParams.Add("radius", validatedBorderRadius.ToString());
             }
-            var validatedColor = bg & 0x00FFFFFF;
-            if (validatedColor > 0)
+            if (!bg.TransparentColor())
             {
-                queryParams.Add("backgroundColor", validatedColor.ToString(format: "x2"));
+                queryParams.Add("backgroundColor", bg.AlphaStrippedColorHexValue());
             }
             queryParams.Add("backgroundType", bgColorType.ApiKey());
             if (!string.IsNullOrEmpty(customColorTypeKey))
