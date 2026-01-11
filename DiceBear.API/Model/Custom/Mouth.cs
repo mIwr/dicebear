@@ -13,13 +13,23 @@ namespace DiceBear.API.Model.Custom
         public const string ApiParamName = "mouth";
 
         /// <summary>
-        /// Aventurer nose API parameter key
+        /// Adventurer mouth API parameter key
         /// </summary>
         /// <param name="mouth"></param>
         /// <returns></returns>
-        public static string ApiKey(this Mouth mouth)
+        public static string ApiKey(this MouthAdventurer mouth)
         {
             return EnumExt.EnumValueName(mouth).ToLower();
+        }
+
+        /// <summary>
+        /// Avataaars mouth API parameter key
+        /// </summary>
+        /// <param name="mouth"></param>
+        /// <returns></returns>
+        public static string ApiKey(this MouthAvataaars mouth)
+        {
+            return EnumExt.EnumValueName(mouth);
         }
 
         //Other style api keys will be here
@@ -28,7 +38,7 @@ namespace DiceBear.API.Model.Custom
     /// <summary>
     /// Adventurer mouth API parameter. See https://www.dicebear.com/styles/adventurer/#options-mouth for details
     /// </summary>
-    public enum Mouth : byte
+    public enum MouthAdventurer : byte
     {
 #pragma warning disable 1591
         Variant01,
@@ -61,6 +71,27 @@ namespace DiceBear.API.Model.Custom
         Variant28,
         Variant29,
         Variant30,
+#pragma warning restore 1591
+    }
+
+    /// <summary>
+    /// Avataaars mouth API parameter. See https://www.dicebear.com/styles/avataaars/#options-mouth for details
+    /// </summary>
+    public enum MouthAvataaars: byte
+    {
+#pragma warning disable 1591
+        concerned,
+        @default,
+        disbelief,
+        eating,
+        grimace,
+        sad,
+        screamOpen,
+        serious,
+        smile,
+        tongue,
+        twinkle,
+        vomit
 #pragma warning restore 1591
     }
 

@@ -29,7 +29,7 @@ namespace DiceBear.API.Tests.Local
         [Test]
         public void GenerateCustomParametersAdventurerLinkTest()
         {
-            var customParams = DiceBearAPI.GenerateAdventurerCustomParamsDict(earRings: EarRings.Variant03, eyeBrows: EyeBrows.Variant10, eyes: EyesAdventurer.Variant15, features: Features.Mustache, glasses: GlassesAdventurer.Variant03, hair: HairAdventurer.Short10, mouth: Mouth.Variant10);
+            var customParams = DiceBearAPI.GenerateAdventurerCustomParamsDict(earRings: EarRings.Variant03, eyeBrows: EyeBrowsAdventurer.Variant10, eyes: EyesAdventurer.Variant15, features: Features.Mustache, glasses: GlassesAdventurer.Variant03, hair: HairAdventurer.Short10, mouth: MouthAdventurer.Variant10);
             var link = DiceBearAPI.GenerateAvaLink(AvaStyle.Adventurer, AvaImageFormat.SVG, seed: "someSeed", flip: false, rotationAngle: 30, scale: 120, borderRadius: 12, sizePx: 256, bg: 0xff123456, bgColorType: BgColorType.Solid, gradientBgColorRotationAngle: 0, translateX: 0, translateY: -10, clip: false, svgRandomizeIDs: true, customParams: customParams);
             Assert.That(link, Is.Not.Null);
         }
@@ -37,8 +37,16 @@ namespace DiceBear.API.Tests.Local
         [Test]
         public void GenerateCustomParametersAdventurerNeutralLinkTest()
         {
-            var customParams = DiceBearAPI.GenerateAdventurerNeutralCustomParamsDict(eyeBrows: EyeBrows.Variant10, eyes: EyesAdventurer.Variant15, glasses: GlassesAdventurer.Variant03, mouth: Mouth.Variant10);
+            var customParams = DiceBearAPI.GenerateAdventurerNeutralCustomParamsDict(eyeBrows: EyeBrowsAdventurer.Variant10, eyes: EyesAdventurer.Variant15, glasses: GlassesAdventurer.Variant03, mouth: MouthAdventurer.Variant10);
             var link = DiceBearAPI.GenerateAvaLink(AvaStyle.AdventurerNeutral, AvaImageFormat.SVG, seed: "someSeed", flip: false, rotationAngle: 30, scale: 120, borderRadius: 12, sizePx: 256, bg: 0xff123456, bgColorType: BgColorType.Solid, gradientBgColorRotationAngle: 0, translateX: 0, translateY: -10, clip: false, svgRandomizeIDs: true, customParams: customParams);
+            Assert.That(link, Is.Not.Null);
+        }
+
+        [Test]
+        public void GenerateCustomParametersAvataaarsLinkTest()
+        {
+            var customParams = DiceBearAPI.GenerateAvataaarsCustomParamsDict(Accessoires.Eyepatch, clothing: Clothing.hoodie, clothingGraphic: ClothingGraphic.hola, eyeBrows: EyeBrowsAvataaars.frownNatural, eyes: EyesAvataaars.surprised, mouth: MouthAvataaars.serious, top: TopAvataaars.hijab);
+            var link = DiceBearAPI.GenerateAvaLink(AvaStyle.Avataaars, AvaImageFormat.SVG, seed: "someSeed", flip: false, rotationAngle: 30, scale: 120, borderRadius: 12, sizePx: 256, bg: 0xff123456, bgColorType: BgColorType.Solid, gradientBgColorRotationAngle: 0, translateX: 0, translateY: -10, clip: false, svgRandomizeIDs: true, customParams: customParams);
             Assert.That(link, Is.Not.Null);
         }
 

@@ -13,8 +13,9 @@ namespace DiceBear.API
         /// <returns>Returns Adventurer custom parameters dictionary</returns>
         public static Dictionary<string, string> GenerateRandomAdventurerParamsDict()
         {
-            var hairColor = (uint)Random.Shared.Next();
-            return GenerateAdventurerCustomParamsDict(earRings: EnumExt.RandomValue<EarRings>(), eyeBrows: EnumExt.RandomValue<EyeBrows>(), eyes: EnumExt.RandomValue<EyesAdventurer>(), features: EnumExt.RandomValue<Features>(), glasses: EnumExt.RandomValue<GlassesAdventurer>(), hair: EnumExt.RandomValue<HairAdventurer>(), hairColor: hairColor, mouth: EnumExt.RandomValue<Mouth>());
+            var rnd = new Random();
+            var hairColor = (uint)rnd.Next();
+            return GenerateAdventurerCustomParamsDict(earRings: EnumExt.RandomValue<EarRings>(), eyeBrows: EnumExt.RandomValue<EyeBrowsAdventurer>(), eyes: EnumExt.RandomValue<EyesAdventurer>(), features: EnumExt.RandomValue<Features>(), glasses: EnumExt.RandomValue<GlassesAdventurer>(), hair: EnumExt.RandomValue<HairAdventurer>(), hairColor: hairColor, mouth: EnumExt.RandomValue<MouthAdventurer>());
         }
 
         /// <summary>
@@ -23,7 +24,7 @@ namespace DiceBear.API
         /// <returns>Returns Adventurer Neutral custom parameters dictionary</returns>
         public static Dictionary<string, string> GenerateRandomAdventurerNeutralParamsDict()
         {
-            return GenerateAdventurerNeutralCustomParamsDict(eyeBrows: EnumExt.RandomValue<EyeBrows>(), eyes: EnumExt.RandomValue<EyesAdventurer>(), glasses: EnumExt.RandomValue<GlassesAdventurer>(), mouth: EnumExt.RandomValue<Mouth>());
+            return GenerateAdventurerNeutralCustomParamsDict(eyeBrows: EnumExt.RandomValue<EyeBrowsAdventurer>(), eyes: EnumExt.RandomValue<EyesAdventurer>(), glasses: EnumExt.RandomValue<GlassesAdventurer>(), mouth: EnumExt.RandomValue<MouthAdventurer>());
         }
 
         /// <summary>
@@ -43,30 +44,28 @@ namespace DiceBear.API
         /// <param name="mouth">Mouth variant</param>
         /// <param name="skinColor">Face skin color</param>
         /// <returns>Returns Adventurer custom parameters dictionary</returns>
-        public static Dictionary<string, string> GenerateAdventurerCustomParamsDict(EarRings? earRings = null, byte earRingsProbability = 100, EyeBrows? eyeBrows = null, EyesAdventurer? eyes = null, Features? features = null, byte featuresProbability = 100, GlassesAdventurer? glasses = null, byte glassesProbability = 100, HairAdventurer? hair = null, uint hairColor = 0xffafafaf, byte hairProbability = 100, Mouth? mouth = null, uint skinColor = 0xfff2d3b1)
+        public static Dictionary<string, string> GenerateAdventurerCustomParamsDict(EarRings? earRings = null, byte earRingsProbability = 100, EyeBrowsAdventurer? eyeBrows = null, EyesAdventurer? eyes = null, Features? features = null, byte featuresProbability = 100, GlassesAdventurer? glasses = null, byte glassesProbability = 100, HairAdventurer? hair = null, uint hairColor = 0xffafafaf, byte hairProbability = 100, MouthAdventurer? mouth = null, uint skinColor = 0xfff2d3b1)
         {
             var resDict = GenerateAdventurerNeutralCustomParamsDict(eyeBrows, eyes, glasses, glassesProbability, mouth);
-            if (earRings != null && earRingsProbability > 0)
+            if (earRings != null && earRingsProbability != 0)
             {
                 resDict.Add(EarRingsExt.ApiParamName, earRings.Value.ApiKey());
                 resDict.Add("earringsProbability", earRingsProbability.ToString());
             }            
-            if (features != null && featuresProbability > 0)
+            if (features != null && featuresProbability != 0)
             {
                 resDict.Add(FeaturesExt.ApiParamName, features.Value.ApiKey());
                 resDict.Add("featuresProbability", featuresProbability.ToString());
             }
-            var validatedColor = hairColor & 0x00FFFFFF;
-            if (hair != null && validatedColor > 0 && hairProbability > 0)
+            if (hair != null && hairProbability != 0 && !hairColor.TransparentColor())
             {
                 resDict.Add(HairExt.ApiParamName, hair.Value.ApiKey());
-                resDict.Add("hairColor", validatedColor.ToString("x2"));
+                resDict.Add("hairColor", hairColor.AlphaStrippedColorHexValue());
                 resDict.Add("hairProbability", hairProbability.ToString());
             }
-            validatedColor = skinColor & 0x00FFFFFF;
-            if (validatedColor > 0)
+            if (!skinColor.TransparentColor())
             {
-                resDict.Add("skinColor", validatedColor.ToString("x2"));
+                resDict.Add("skinColor", skinColor.AlphaStrippedColorHexValue());
             }
             return resDict;
         }
@@ -80,18 +79,18 @@ namespace DiceBear.API
         /// <param name="glassesProbability">Glasses show probability (0..100). Default value is 100</param>       
         /// <param name="mouth">Mouth variant</param>        
         /// <returns>Returns Adventurer Neutral custom parameters dictionary</returns>
-        public static Dictionary<string, string> GenerateAdventurerNeutralCustomParamsDict(EyeBrows? eyeBrows = null, EyesAdventurer? eyes = null, GlassesAdventurer? glasses = null, byte glassesProbability = 100, Mouth? mouth = null)
+        public static Dictionary<string, string> GenerateAdventurerNeutralCustomParamsDict(EyeBrowsAdventurer? eyeBrows = null, EyesAdventurer? eyes = null, GlassesAdventurer? glasses = null, byte glassesProbability = 100, MouthAdventurer? mouth = null)
         {
             var resDict = new Dictionary<string, string>();            
             if (eyeBrows != null)
             {
-                resDict.Add(BrowsExt.AdventurerApiParamName, eyeBrows.Value.ApiKey());
+                resDict.Add(BrowsExt.ApiParamNameVariant, eyeBrows.Value.ApiKey());
             }
             if (eyes != null)
             {
                 resDict.Add(EyesExt.ApiParamName, eyes.Value.ApiKey());
             }
-            if (glasses != null && glassesProbability > 0)
+            if (glasses != null && glassesProbability != 0)
             {
                 resDict.Add(GlassesExt.ApiParamName, glasses.Value.ApiKey());
             }            

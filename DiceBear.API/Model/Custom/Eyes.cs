@@ -32,6 +32,16 @@ namespace DiceBear.API.Model.Custom
             return EnumExt.EnumValueName(eyes).ToLower();
         }
 
+        /// <summary>
+        /// Avataaars eyes API parameter key
+        /// </summary>
+        /// <param name="eyes"></param>
+        /// <returns></returns>
+        public static string ApiKey(this EyesAvataaars eyes)
+        {
+            return EnumExt.EnumValueName(eyes);
+        }
+
         //Other style api keys will be here
     }
 
@@ -81,6 +91,27 @@ namespace DiceBear.API.Model.Custom
         Variant24,
         Variant25,
         Variant26
+#pragma warning restore 1591
+    }
+
+    /// <summary>
+    /// Avataaars eyes API parameter. See https://www.dicebear.com/styles/avataaars/#options-eyes for details
+    /// </summary>
+    public enum EyesAvataaars : byte
+    {
+#pragma warning disable 1591
+        closed,
+        cry,
+        @default,
+        eyeRoll,
+        happy,
+        hearts,
+        side,
+        squint,
+        surprised,
+        wink,
+        winkWacky,
+        xDizzy
 #pragma warning restore 1591
     }
 

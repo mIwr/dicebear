@@ -137,13 +137,24 @@ namespace DiceBear.API.Model
     public static class AvaStyleExt
     {
         /// <summary>
+        /// All ava styles
+        /// </summary>
+        public static AvaStyle[] Values
+        {
+            get
+            {
+                return EnumExt.GetValues<AvaStyle>();
+            }
+        }
+
+        /// <summary>
         /// Ava styles with face
         /// </summary>
         public static AvaStyle[] FaceStyles
         {
             get
             {
-                var all = new HashSet<AvaStyle>(Enum.GetValues<AvaStyle>());
+                var all = new HashSet<AvaStyle>(Values);
                 all.Remove(AvaStyle.Glass);
                 all.Remove(AvaStyle.Icons);
                 all.Remove(AvaStyle.Identicon);

@@ -11,6 +11,10 @@ namespace DiceBear.API.Model.Custom
         /// API parameter name
         /// </summary>
         public const string ApiParamName = "hair";
+        /// <summary>
+        /// API parameter name
+        /// </summary>
+        public const string ApiParamNameVariant = "top";
 
         /// <summary>
         /// Notionists hair API parameter key
@@ -31,6 +35,17 @@ namespace DiceBear.API.Model.Custom
         {
             return EnumExt.EnumValueName(hair).ToLower();
         }
+
+        /// <summary>
+        /// Avataars top API parameter key
+        /// </summary>
+        /// <param name="top"></param>
+        /// <returns></returns>
+        public static string ApiKey(this TopAvataaars top)
+        {
+            return EnumExt.EnumValueName(top);
+        }
+
         //Other style api keys will be here
     }
 
@@ -291,6 +306,130 @@ namespace DiceBear.API.Model.Custom
         /// Male short hair variant
         /// </summary>
         Short19,
+    }
+
+    /// <summary>
+    /// Adventurer hair API parameter. See https://www.dicebear.com/styles/avataaars/#options-top for details
+    /// </summary>
+    public enum TopAvataaars: byte
+    {
+#pragma warning disable 1591
+        /// <summary>
+        /// Female long hair variant
+        /// </summary>
+        bigHair,
+        /// <summary>
+        /// Female long hair variant
+        /// </summary>
+        bob,
+        /// <summary>
+        /// Female long hair variant
+        /// </summary>
+        bun,
+        /// <summary>
+        /// Female long hair variant
+        /// </summary>
+        curly,
+        /// <summary>
+        /// Female long hair variant
+        /// </summary>
+        curvy,
+        /// <summary>
+        /// Unisersal hair variant
+        /// </summary>
+        dreads,
+        /// <summary>
+        /// Male hair variant
+        /// </summary>
+        dreads01,
+        /// <summary>
+        /// Male hair variant
+        /// </summary>
+        dreads02,
+        /// <summary>
+        /// Female long hair variant
+        /// </summary>
+        frida,
+        /// <summary>
+        /// Male hair variant
+        /// </summary>
+        frizzle,
+        /// <summary>
+        /// Female long hair variant
+        /// </summary>
+        fro,
+        /// <summary>
+        /// Female long hair variant
+        /// </summary>
+        froBand,
+        hat,
+        hijab,
+        /// <summary>
+        /// Female long hair variant
+        /// </summary>
+        longButNotTooLong,
+        /// <summary>
+        /// Female long hair variant
+        /// </summary>
+        miaWallace,
+        /// <summary>
+        /// Female long hair variant
+        /// </summary>
+        shaggy,
+        /// <summary>
+        /// Female long hair variant
+        /// </summary>
+        shaggyMullet,
+        /// <summary>
+        /// Female long hair variant
+        /// </summary>
+        shavedSides,
+        /// <summary>
+        /// Male hair variant
+        /// </summary>
+        shortCurly,
+        /// <summary>
+        /// Male hair variant
+        /// </summary>
+        shortFlat,
+        /// <summary>
+        /// Male hair variant
+        /// </summary>
+        shortRound,
+        /// <summary>
+        /// Male hair variant
+        /// </summary>
+        shortWaved,
+        /// <summary>
+        /// Old male hair variant
+        /// </summary>
+        sides,
+        /// <summary>
+        /// Female hair variant
+        /// </summary>
+        straight01,
+        /// <summary>
+        /// Female hair variant
+        /// </summary>
+        straight02,
+        /// <summary>
+        /// Female hair variant
+        /// </summary>
+        straightAndStrand,
+        /// <summary>
+        /// Male hair variant
+        /// </summary>
+        theCaesar,
+        /// <summary>
+        /// Male hair variant
+        /// </summary>
+        theCaesarAndSidePart,
+        turban,
+        winterHat1,
+        winterHat02,
+        winterHat03,
+        winterHat04
+#pragma warning restore 1591
     }
 
     //Other style enums with same parameter name will be here

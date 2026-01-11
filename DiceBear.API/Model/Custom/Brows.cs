@@ -12,9 +12,9 @@ namespace DiceBear.API.Model.Custom
         /// </summary>
         public const string ApiParamName = "brows";
         /// <summary>
-        /// Adventurer API parameter name
+        /// API parameter name
         /// </summary>
-        public const string AdventurerApiParamName = "eyebrows";
+        public const string ApiParamNameVariant = "eyebrows";
 
         /// <summary>
         /// Notionists brows API parameter key
@@ -27,13 +27,23 @@ namespace DiceBear.API.Model.Custom
         }
 
         /// <summary>
-        /// Aventurer eye brows API parameter key
+        /// Adventurer eye brows API parameter key
         /// </summary>
         /// <param name="brows"></param>
         /// <returns></returns>
-        public static string ApiKey(this EyeBrows brows)
+        public static string ApiKey(this EyeBrowsAdventurer brows)
         {
             return EnumExt.EnumValueName(brows).ToLower();
+        }
+
+        /// <summary>
+        /// Avataaars eye brows API parameter key
+        /// </summary>
+        /// <param name="brows"></param>
+        /// <returns></returns>
+        public static string ApiKey(this EyeBrowsAvataaars brows)
+        {
+            return EnumExt.EnumValueName(brows);
         }
 
         //Other style api keys will be here
@@ -64,7 +74,7 @@ namespace DiceBear.API.Model.Custom
     /// <summary>
     /// Adventurer eye brows API parameter. See https://www.dicebear.com/styles/adventurer/#options-eyebrows for details
     /// </summary>
-    public enum EyeBrows: byte
+    public enum EyeBrowsAdventurer: byte
     {
 #pragma warning disable 1591
         Variant01,
@@ -82,6 +92,28 @@ namespace DiceBear.API.Model.Custom
         Variant13,
         Variant14,
         Variant15,
+#pragma warning restore 1591
+    }
+
+    /// <summary>
+    /// Avataaars eye brows API parameter. See https://www.dicebear.com/styles/avataaars/#options-eyebrows for details
+    /// </summary>
+    public enum EyeBrowsAvataaars: byte
+    {
+#pragma warning disable 1591
+        angry,
+        angryNatural,
+        @default,
+        defaultNatural,
+        flatNatural,
+        frownNatural,
+        raisedExcited,
+        raisedExcitedNatural,
+        sadConcerned,
+        sadConcernedNatural,
+        unibrowNatural,
+        upDown,
+        upDownNatural
 #pragma warning restore 1591
     }
 

@@ -41,7 +41,7 @@ namespace DiceBear.API.Model
         /// <returns></returns>
         public static string ApiKey(this AvaImageFormat format)
         {
-            var enumName = Enum.GetName(format);
+            var enumName = Enum.GetName(typeof(AvaImageFormat), format);
             if (string.IsNullOrEmpty(enumName))
             {
                 return format.ToString();

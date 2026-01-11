@@ -59,7 +59,7 @@ namespace FaceGenerator.Network
         {
             get
             {
-                return Enum.GetValues<ApiErrorEnum>();
+                return EnumExt.GetValues<ApiErrorEnum>();
             }
         }
 
